@@ -4,17 +4,16 @@ import 'package:gdgica/home/index.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class HomeEvent {
-  Future<HomeState> applyAsync({HomeState currentState, HomeBloc bloc});
-}
+abstract class HomeEvent {}
 
 class LoadHomeEvent extends HomeEvent {
   final IHomeProvider _homeProvider = HomeProvider();
+
   @override
   String toString() => 'LoadHomeEvent';
 
-  @override
-  Future<HomeState> applyAsync({HomeState? currentState, HomeBloc? bloc}) async {
+  Future<HomeState> applyAsync(
+      {HomeState? currentState, HomeBloc? bloc}) async {
     try {
       var speakersData = await _homeProvider.getSpeakers();
       var sessionsData = await _homeProvider.getSessions();
@@ -24,10 +23,8 @@ class LoadHomeEvent extends HomeEvent {
         sessionsData: sessionsData,
         teamsData: teamsData,
       );
-    // } catch (_, stackTrace) {
-    } catch (_) {
-      // return ErrorHomeState(_?.toString());
-      return ErrorHomeState(_.toString());
+    } catch (error) {
+      return ErrorHomeState(error.toString());
     }
   }
 }

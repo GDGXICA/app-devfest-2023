@@ -30,8 +30,6 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // this._homeBloc.dispatch(LoadHomeEvent());
-    // this._homeBloc.add(LoadHomeEvent());
     _homeBloc.add(LoadHomeEvent());
   }
 
@@ -42,7 +40,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
+    return BlocListener<HomeBloc, HomeState>(
       bloc: widget._homeBloc,
       listener: (context, state) {
         if (state is ErrorHomeState) {
@@ -52,7 +50,6 @@ class HomeScreenState extends State<HomeScreen> {
             builder: (context) => ErrorDialog(
               error: state.errorMessage,
               onTap: () {
-                // _homeBloc.dispatch(LoadHomeEvent());
                 _homeBloc.add(LoadHomeEvent());
               },
             ),

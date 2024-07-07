@@ -4,29 +4,24 @@ import 'package:gdgica/home/index.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   static final HomeBloc _homeBlocSingleton = HomeBloc._internal();
-  
+
   factory HomeBloc() {
     return _homeBlocSingleton;
   }
-  
-  HomeBloc._internal() : super(UnHomeState()); // Pasa el estado inicial al constructor de la superclase
 
-  // @override
-  HomeState get initialState => UnHomeState();
+  HomeBloc._internal() : super(UnHomeState()) {
+    on<LoadHomeEvent>(
+        _onLoadHomeEvent); // Registra el manejador para el evento LoadHomeEvent
+  }
 
-  @override
-  Stream<HomeState> mapEventToState(
-    HomeEvent event,
-  ) async* {
-    yield UnHomeState();
+  Future<void> _onLoadHomeEvent(
+      LoadHomeEvent event, Emitter<HomeState> emit) async {
+    emit(UnHomeState());
     try {
-      yield await event.applyAsync(currentState: state, bloc: this);
-      // yield await event.applyAsync(currentState: currentState, bloc: this);
-    // } catch (_, stackTrace) {
-      } catch (_) {
-      // print('$_ $stackTrace');
-      // yield currentState;
-      yield state;
+      final newState = await event.applyAsync(currentState: state, bloc: this);
+      emit(newState);
+    } catch (error) {
+      emit(ErrorHomeState(error.toString()));
     }
   }
 }
