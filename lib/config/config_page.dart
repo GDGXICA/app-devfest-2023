@@ -5,6 +5,7 @@ import 'package:gdgica/config/index.dart';
 import 'package:gdgica/faq/faq_page.dart';
 import 'package:gdgica/find_devfest/find_devfest_page.dart';
 import 'package:gdgica/home/home_page.dart';
+import 'package:gdgica/home/register_screen.dart';
 import 'package:gdgica/map/map_page.dart';
 import 'package:gdgica/speakers/speaker_page.dart';
 import 'package:gdgica/sponsors/sponsor_page.dart';
@@ -70,6 +71,7 @@ class _ConfigPageState extends State<ConfigPage> {
               FaqPage.routeName: (context) => const FaqPage(),
               FindDevFestPage.routeName: (context) => const FindDevFestPage(),
               MapPage.routeName: (context) => const MapPage(),
+              RegisterScreen.routeName: (context) => const RegisterScreen(),
             },
           );
         },
